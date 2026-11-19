@@ -1,0 +1,34 @@
+{
+  "name": "SI-MAJU RT 05 RW 07 Tengguli",
+  "short_name": "SI-MAJU",
+  "description": "Sistem Informasi dan Manajemen Warga RT liMa RW tuJuh, Tengguli, Bangsri, Jepara",
+  "lang": "id",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F4F5FB",
+  "theme_color": "#5B5CEB",
+  "icons": [
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "id": "./",
+  "prefer_related_applications": false
+}

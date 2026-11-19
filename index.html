@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>SI-MAJU RT 05 RW 07 Tengguli</title>
+
+  <!-- Font & ikon (CDN) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <script>window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();window.__bip=e;});</script>
+  <meta name="theme-color" content="#5B5CEB" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0E1120" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="SI-MAJU — Sistem Informasi dan Manajemen Warga RT 05 RW 07 Tengguli, Bangsri, Jepara">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="SI-MAJU">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="./css/style.css?v=2.5.0">
+</head>
+<body>
+
+  <!-- ═════ Pemuatan awal ═════ -->
+  <div id="boot" class="auth-screen" role="status" aria-live="polite">
+    <div class="center">
+      <img class="js-logo" src="./assets/logo.png" alt="" width="72" height="72" style="object-fit:contain">
+      <p class="muted mt-1">Memuat SI-MAJU…</p>
+    </div>
+  </div>
+
+  <!-- ═════ Layar masuk & ganti password ═════ -->
+  <section id="authScreen" class="auth-screen" hidden>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <img class="js-logo" alt="Logo SI-MAJU">
+        <h1>SI-MAJU</h1>
+        <p id="authSub">RT 05 / RW 07 Tengguli</p>
+      </div>
+
+      <!-- Form masuk -->
+      <form id="loginForm" class="form-grid" novalidate autocomplete="on">
+        <div class="field">
+          <label for="loginUser">Username</label>
+          <input id="loginUser" class="input" type="text" name="username" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="60" required>
+        </div>
+        <div class="field">
+          <label for="loginPass">Password</label>
+          <div class="pw-wrap">
+            <input id="loginPass" class="input" type="password" name="password" autocomplete="current-password" maxlength="100" required>
+            <button type="button" class="js-togglepw" data-target="loginPass" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
+        <div class="login-opsi"><label class="check" for="loginIngat"><input id="loginIngat" type="checkbox" checked><span>Ingat saya di perangkat ini<small class="muted" style="display:block">Tetap masuk 30 hari. Hapus centang bila memakai HP bersama.</small></span></label><button type="button" class="link-btn" data-act="lupa-open">Lupa password?</button></div>
+        <p id="loginInfo" class="small muted center" role="status" hidden></p>
+        <p id="loginErr" class="err small text-bad" role="alert" aria-live="assertive" hidden></p>
+        <button id="loginBtn" class="btn block" type="submit"><i class="bi bi-box-arrow-in-right"></i> Masuk</button>
+        <button id="loginBack" class="link-btn" type="button" data-act="back-public"><i class="bi bi-arrow-left"></i> Kembali ke Beranda</button>
+        <p class="small muted center">Akun dibuat oleh pengurus RT. Belum punya akun? Hubungi pengurus.</p>
+      </form>
+
+      <!-- Form lupa password -->
+      <form id="lupaForm" class="form-grid" novalidate hidden autocomplete="off">
+        <h2 class="auth-h">Lupa password</h2>
+        <div id="lupaS1" class="form-grid">
+          <p class="small muted">Masukkan username Anda. Kode 6 digit dikirim ke WhatsApp (nomor KK yang tercatat di RT), atau minta pengurus mereset password Anda.</p>
+          <div class="field"><label for="lupaUser">Username</label><input id="lupaUser" class="input" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" maxlength="60"></div>
+          <button type="button" class="btn block" data-act="lupa-kirim"><i class="bi bi-whatsapp"></i> Kirim kode ke WhatsApp</button>
+          <button type="button" class="btn soft block" data-act="lupa-minta"><i class="bi bi-person-gear"></i> Minta pengurus mereset password</button>
+        </div>
+        <div id="lupaS2" class="form-grid" hidden>
+          <div class="banner"><i class="bi bi-chat-dots"></i><span id="lupaInfo2"></span></div>
+          <div class="field"><label for="lupaKode">Kode 6 digit</label><input id="lupaKode" class="input" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="123456"></div>
+          <div class="field"><label for="lupaNew">Password baru</label><div class="pw-wrap"><input id="lupaNew" class="input" type="password" autocomplete="new-password" minlength="8" maxlength="100"><button type="button" class="js-togglepw" data-target="lupaNew" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button></div><span class="help">Minimal 8 karakter.</span></div>
+          <div class="field"><label for="lupaNew2">Ulangi password baru</label><input id="lupaNew2" class="input" type="password" autocomplete="new-password" maxlength="100"></div>
+          <button id="lupaSimpanBtn" class="btn block" type="submit"><i class="bi bi-check2-circle"></i> Simpan password baru</button>
+          <button id="lupaUlangBtn" class="link-btn" type="button" data-act="lupa-ulang-kirim" disabled>Kirim ulang kode</button>
+          <button class="link-btn" type="button" data-act="lupa-ulang">Ganti username / cara lain</button>
+        </div>
+        <div id="lupaS3" class="form-grid" hidden>
+          <div class="banner"><i class="bi bi-person-check"></i><span id="lupaInfo3"></span></div>
+          <p class="small muted">Setelah pengurus mereset, Anda menerima password sementara dan diminta membuat password baru saat masuk.</p>
+        </div>
+        <p id="lupaErr" class="err small text-bad" role="alert" aria-live="assertive" hidden></p>
+        <button class="link-btn" type="button" data-act="lupa-batal"><i class="bi bi-arrow-left"></i> Kembali ke halaman masuk</button>
+      </form>
+
+      <!-- Form ganti password (wajib pada login pertama) -->
+      <form id="pwForm" class="form-grid" novalidate hidden>
+        <div class="banner"><i class="bi bi-shield-lock"></i><span>Demi keamanan, silakan buat password baru sebelum melanjutkan.</span></div>
+        <div class="field">
+          <label for="pwOld">Password saat ini</label>
+          <div class="pw-wrap">
+            <input id="pwOld" class="input" type="password" autocomplete="current-password" maxlength="100" required>
+            <button type="button" class="js-togglepw" data-target="pwOld" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pwNew">Password baru</label>
+          <div class="pw-wrap">
+            <input id="pwNew" class="input" type="password" autocomplete="new-password" minlength="8" maxlength="100" required>
+            <button type="button" class="js-togglepw" data-target="pwNew" aria-label="Tampilkan password"><i class="bi bi-eye"></i></button>
+          </div>
+          <span class="help">Minimal 8 karakter, berbeda dari password sebelumnya.</span>
+        </div>
+        <div class="field">
+          <label for="pwNew2">Ulangi password baru</label>
+          <input id="pwNew2" class="input" type="password" autocomplete="new-password" maxlength="100" required>
+        </div>
+        <p id="pwErr" class="err small text-bad" role="alert" aria-live="assertive" hidden></p>
+        <button id="pwBtn" class="btn block" type="submit"><i class="bi bi-check2-circle"></i> Simpan password</button>
+        <button id="pwCancel" class="link-btn" type="button">Keluar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ═════ Aplikasi (setelah masuk) ═════ -->
+  <div id="app" class="app" hidden>
+
+    <!-- Menu samping (tablet / desktop) -->
+    <aside class="sidebar" aria-label="Menu utama">
+      <div class="brand">
+        <img class="js-logo" alt="">
+        <div><b>SI-MAJU</b><span class="js-rt">RT 05 / RW 07 Tengguli</span></div>
+      </div>
+      <div class="side-label">Menu utama</div>
+      <nav id="sideNav" class="side-nav"></nav>
+      <div class="side-foot"><b>Tengguli, Bangsri, Jepara</b>Media transparansi dan informasi warga.</div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <img class="js-logo" alt="">
+          <div><b>SI-MAJU</b><span class="js-rt">RT 05 / RW 07 Tengguli</span></div>
+        </div>
+        <div id="topTitle" class="topbar-title"></div>
+        <div class="topbar-actions">
+          <button id="installBtn" class="btn sm soft" type="button" data-act="pwa-install" hidden><i class="bi bi-phone"></i> <span>Pasang</span></button>
+          <button id="warnaBtn" class="btn outline icon" type="button" data-act="tampil-open" aria-label="Atur warna dan tampilan"><i class="bi bi-palette"></i></button>
+          <button id="themeBtn" class="btn outline icon" type="button" aria-label="Ganti tema terang atau gelap"><i class="bi bi-moon-stars"></i></button>
+          <button id="loginTopBtn" class="btn sm" type="button" data-act="go-login"><i class="bi bi-box-arrow-in-right"></i> Masuk</button>
+          <button id="userChip" class="user-chip" type="button" aria-label="Buka menu akun">
+            <span><b id="chipName"></b><span id="chipRole" class="badge"></span></span>
+            <span id="chipAvatar" class="avatar"></span>
+          </button>
+          <button id="avatarBtn" class="avatar avatar-btn-mobile" type="button" aria-label="Buka menu akun"></button>
+        </div>
+      </header>
+
+      <!-- KONTAINER SPA: seluruh halaman dirender di sini, URL tidak pernah berubah -->
+      <main id="app-container" class="main" tabindex="-1" aria-live="polite"></main>
+    </div>
+
+    <!-- Navigasi bawah (HP) -->
+    <nav id="dock" class="dock" aria-label="Navigasi bawah"></nav>
+  </div>
+
+  <div id="netBar" class="netbar" role="status" hidden><i class="bi bi-wifi-off"></i> Anda sedang offline — menampilkan data tersimpan.</div>
+  <div id="modalRoot"></div>
+  <div id="toastRoot" class="toast-root" aria-live="polite" role="status"></div>
+
+  <script src="./js/config.js"></script>
+  <script src="./js/app.js?v=2.5.0"></script>
+</body>
+</html>
